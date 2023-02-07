@@ -1503,7 +1503,7 @@ func (ds *DataSource) convertToIndexScan(prop *property.PhysicalProperty,
 		cop.keepOrder = true
 		// IndexScan on partition table can't keep order.
 		if ds.tableInfo.GetPartitionInfo() != nil {
-			return invalidTask, nil
+			return task, nil
 		}
 	}
 	if cop.needExtraProj {
