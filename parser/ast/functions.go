@@ -525,7 +525,7 @@ func (n *FuncCallExpr) customRestore(ctx *format.RestoreCtx) (bool, error) {
 // Format the ExprNode into a Writer.
 func (n *FuncCallExpr) Format(w io.Writer) {
 	if !n.specialFormatArgs(w) {
-		fmt.Fprintf(w, "%s(", n.FnName.L)
+		fmt.Fprintf(w, "%s(",n.FnName.L)
 		for i, arg := range n.Args {
 			arg.Format(w)
 			if i != len(n.Args)-1 {
