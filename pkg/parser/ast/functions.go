@@ -431,7 +431,7 @@ func (n *FuncCallExpr) Restore(ctx *format.RestoreCtx) error {
 		if err := n.Args[0].Restore(ctx); err != nil {
 			return errors.Annotatef(err, "An error occurred while restore FuncCallExpr.Args[0]")
 		}
-		ctx.WritePlain(", ")
+		ctx.WritePlain(",")
 		ctx.WriteKeyWord("INTERVAL ")
 		if err := n.Args[1].Restore(ctx); err != nil {
 			return errors.Annotatef(err, "An error occurred while restore FuncCallExpr.Args[1]")
@@ -494,7 +494,7 @@ func (n *FuncCallExpr) Restore(ctx *format.RestoreCtx) error {
 	default:
 		for i, argv := range n.Args {
 			if i != 0 {
-				ctx.WritePlain(", ")
+				ctx.WritePlain(",")
 			}
 			if err := argv.Restore(ctx); err != nil {
 				return errors.Annotatef(err, "An error occurred while restore FuncCallExpr.Args %d", i)
@@ -640,7 +640,7 @@ func (n *FuncCastExpr) Restore(ctx *format.RestoreCtx) error {
 		if err := n.Expr.Restore(ctx); err != nil {
 			return errors.Annotatef(err, "An error occurred while restore FuncCastExpr.Expr")
 		}
-		ctx.WritePlain(", ")
+		ctx.WritePlain(",")
 		n.Tp.RestoreAsCastType(ctx, n.ExplicitCharSet)
 		ctx.WritePlain(")")
 	case CastBinaryOperator:
@@ -822,7 +822,7 @@ func (n *AggregateFuncExpr) Restore(ctx *format.RestoreCtx) error {
 	case "group_concat":
 		for i := 0; i < len(n.Args)-1; i++ {
 			if i != 0 {
-				ctx.WritePlain(", ")
+				ctx.WritePlain(",")
 			}
 			if err := n.Args[i].Restore(ctx); err != nil {
 				return errors.Annotatef(err, "An error occurred while restore AggregateFuncExpr.Args[%d]", i)
@@ -841,7 +841,7 @@ func (n *AggregateFuncExpr) Restore(ctx *format.RestoreCtx) error {
 	default:
 		for i, argv := range n.Args {
 			if i != 0 {
-				ctx.WritePlain(", ")
+				ctx.WritePlain(",")
 			}
 			if err := argv.Restore(ctx); err != nil {
 				return errors.Annotatef(err, "An error occurred while restore AggregateFuncExpr.Args[%d]", i)
@@ -933,7 +933,7 @@ func (n *WindowFuncExpr) Restore(ctx *format.RestoreCtx) error {
 	ctx.WritePlain("(")
 	for i, v := range n.Args {
 		if i != 0 {
-			ctx.WritePlain(", ")
+			ctx.WritePlain(",")
 		} else if n.Distinct {
 			ctx.WriteKeyWord("DISTINCT ")
 		}
