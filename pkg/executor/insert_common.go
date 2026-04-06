@@ -856,6 +856,9 @@ func (e *InsertValues) lazyAdjustAutoIncrementDatum(ctx context.Context, rows []
 			}
 			e.Ctx().GetSessionVars().StmtCtx.InsertID = uint64(recordID)
 			retryInfo.AddAutoIncrementID(recordID)
+			if e.lastInsertID == 0 {
+				e.lastInsertID = uint64(recordID) + uint64(e.Ctx().GetSessionVars().AutoIncrementIncrement)
+			}
 			continue
 		}
 
@@ -952,6 +955,9 @@ func (e *InsertValues) adjustAutoIncrementDatum(
 		}
 		e.Ctx().GetSessionVars().StmtCtx.InsertID = uint64(recordID)
 		retryInfo.AddAutoIncrementID(recordID)
+		if e.lastInsertID == 0 {
+			e.lastInsertID = uint64(recordID) + uint64(e.Ctx().GetSessionVars().AutoIncrementIncrement)
+		}
 		return d, nil
 	}
 
